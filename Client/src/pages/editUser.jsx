@@ -4,14 +4,24 @@ import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const EditUser = () => {
+const usuariosBack = [
+    {
+        "Nit": 123,
+        "Nombre":"Hugo",
+        "Email":"H@gmail.com",
+        "Telefono":1234,
+        "Ciudad":"Pasto",
+        "Direccion":"calle",
+        "Rol":"adm",
+        "Estado":"Activo"
+    }
+]
 
-    const [getID, setID] = useState('')
+const EditUser = ({infoUser = usuariosBack}) => {
 
-    useEffect( ()=> {
-        console.log("Hola")
-    },[])
+    const [Ide, setID] = useState()
 
+    console.log(infoUser)
 
     return (
         <div>
@@ -38,33 +48,43 @@ const EditUser = () => {
 
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm"> Cédula/NIT:
                                             <input
-                                            onChange = {(e)=>{setID=e.target.value}} 
+                                            
+                                            onChange = {(e)=>{setID(e.target.value)}} 
                                             type="text" 
                                             class="form-control form-control-user" 
-                                            
                                             />
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm"> Nombre:
-                                            <input type="text" class="form-control form-control-user"
-                                            value="Junior Zarta Zarate"/>
+                                            <input 
+                                            type="text" 
+                                            class="form-control form-control-user"
+                                            />
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm"> Correo Electrónico:
-                                            <input type="text" class="form-control form-control-user"
-                                            value="juniorzartazarate@gmail.com"/>
+                                            <input 
+                                            type="text" 
+                                            class="form-control form-control-user"/>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm"> Teléfono:
-                                            <input type="text" class="form-control form-control-user" value="3005678901"/>
+                                            <input 
+                                            type="text" 
+                                            class="form-control form-control-user" />
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm"> Ciudad:
-                                            <input type="text" class="form-control form-control-user" value="Bello"/>
+                                            <input 
+                                            type="text" 
+                                            class="form-control form-control-user"/>
                                         </div>
 
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm"> Dirección:
-                                            <input type="text" class="form-control form-control-user"
-                                            value="Diagonal 56 # 55-75"/>
+                                            <input 
+                                            type="text" 
+                                            class="form-control form-control-user"/>
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm "> Rol:
-                                            <select name="rol" id="rol">
+                                            <select 
+                                            name="rol" 
+                                            id="rol">
                                                 <option value="seleccionar">Seleccionar</option>
                                                 <option value="admin">Administrador</option>
                                                 <option value="vendedor">Vendedor</option>
@@ -72,7 +92,9 @@ const EditUser = () => {
                                         </div>
 
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm "> Estado:
-                                            <select name="estado" id="Estado">
+                                            <select 
+                                            name="estado" 
+                                            id="Estado">
                                                 <option value="seleccionar">Seleccionar</option>
                                                 <option value="autorizado">Autorizado</option>
                                                 <option value="noautorizado">No Autorizado</option>

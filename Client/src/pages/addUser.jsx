@@ -3,19 +3,6 @@ import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const usuariosBack = [
-    {
-        "Nit": 123,
-        "Nombre":"Hugo",
-        "Email":"H@gmail.com",
-        "Telefono":1234,
-        "Ciudad":"Pasto",
-        "Direccion":"calle",
-        "Rol":"adm",
-        "Estado":"Activo"
-    }
-]
-
 const AddUser = () => {
     {/**Captura de datos en inputs */}
     let [Ide, setID] = useState('');
