@@ -3,8 +3,21 @@ import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const AddUser = () => {
+const usuariosBack = [
+    {
+        "Nit": 123,
+        "Nombre":"Hugo",
+        "Email":"H@gmail.com",
+        "Telefono":1234,
+        "Ciudad":"Pasto",
+        "Direccion":"calle",
+        "Rol":"adm",
+        "Estado":"Activo"
+    }
+]
 
+const AddUser = () => {
+    {/**Captura de datos en inputs */}
     let [Ide, setID] = useState('');
     let [nombre, setNombre] = useState('');
     let [correo, setCorreo] = useState('');
@@ -12,14 +25,25 @@ const AddUser = () => {
     let [ciudad, setCiudad] = useState('');
     let [direccion, setDireccion] = useState('');
     let [rol, setRol] = useState('');
-    let [Estado, setEstado] = useState('');
+    let [estado, setEstado] = useState('');
 
-    useEffect(()=>{
-    },[])
-
+    {/** Funcion que activa el boton para enviar datos */}
     const enviarDatos = ()=>{
-        console.log("var uno ",Ide)
+        console.log(`
+        ID: ${Ide}, 
+        nombre: ${nombre}, 
+        correo: ${correo},
+        telefono: ${telefono},
+        ciudad: ${ciudad},
+        direccion: ${direccion},
+        rol: ${rol},
+        estado: ${estado}`)
     }
+
+    {/**Trae los datos del back para mostrar en inputs */}
+    useEffect(() => {
+        
+    }, [])
 
     return (
         <div>
@@ -88,7 +112,10 @@ const AddUser = () => {
                                         />
                                     </div>
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm "> Rol:
-                                        <select name="rol" id="rol">
+                                        <select
+                                        onChange={(e)=>{setRol(e.target.value)}} 
+                                        name="rol" 
+                                        id="rol">
                                             <option value="seleccionar">Seleccionar</option>
                                             <option value="admin">Administrador</option>
                                             <option value="vendedor">Vendedor</option>
@@ -96,7 +123,10 @@ const AddUser = () => {
                                     </div>
 
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm "> Estado:
-                                        <select name="estado" id="Estado">
+                                        <select
+                                        onChange={(e)=>{setEstado(e.target.value)}}  
+                                        name="estado" 
+                                        id="Estado">
                                             <option value="seleccionar">Seleccionar</option>
                                             <option value="autorizado">Autorizado</option>
                                             <option value="noautorizado">No Autorizado</option>
