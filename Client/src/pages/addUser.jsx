@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const addUser = () => {
+const AddUser = () => {
+
+    let [Ide, setID] = useState('');
+    let [nombre, setNombre] = useState('');
+    let [correo, setCorreo] = useState('');
+    let [telefono, setTelefono] = useState('');
+    let [ciudad, setCiudad] = useState('');
+    let [direccion, setDireccion] = useState('');
+    let [rol, setRol] = useState('');
+    let [Estado, setEstado] = useState('');
+
+    useEffect(()=>{
+    },[])
+
+    const enviarDatos = ()=>{
+        console.log("var uno ",Ide)
+    }
+
     return (
         <div>
 
@@ -28,23 +45,47 @@ const addUser = () => {
                                 <div className="form-group row">
 
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Cédula/NIT:
-                                        <input type="text" className="form-control form-control-user" value=" "/>
+                                        <input
+                                        onChange={(e)=>{setID(e.target.value)}} 
+                                        type="text" 
+                                        className="form-control form-control-user" 
+                                        />
                                     </div>
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Nombre:
-                                        <input type="text" className="form-control form-control-user" value=" "/>
+                                        <input
+                                        onChange={(e)=>{setNombre(e.target.value)}} 
+                                        type="text" 
+                                        className="form-control form-control-user"
+                                        />
                                     </div>
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Correo Electrónico:
-                                        <input type="text" className="form-control form-control-user" value=" "/>
+                                        <input
+                                        onChange={(e)=>{setCorreo(e.target.value)}} 
+                                        type="text" 
+                                        className="form-control form-control-user"
+                                        />
                                     </div>
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Teléfono:
-                                        <input type="text" className="form-control form-control-user" value=" "/>
+                                        <input
+                                        onChange={(e)=>{setTelefono(e.target.value)}}  
+                                        type="text" 
+                                        className="form-control form-control-user"
+                                        />
                                     </div>
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Ciudad:
-                                        <input type="text" className="form-control form-control-user" value=""/>
+                                        <input
+                                        onChange={(e)=>{setCiudad(e.target.value)}}  
+                                        type="text" 
+                                        className="form-control form-control-user"
+                                        />
                                     </div>
 
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Dirección:
-                                        <input type="text" className="form-control form-control-user" value=" "/>
+                                        <input
+                                        onChange={(e)=>{setDireccion(e.target.value)}} 
+                                        type="text" 
+                                        className="form-control form-control-user"
+                                        />
                                     </div>
                                     <div className="col-sm-6 mb-3 mb-sm-0 paddingForm "> Rol:
                                         <select name="rol" id="rol">
@@ -67,11 +108,9 @@ const addUser = () => {
                                 {/**<!-- Botón de Actualizar--> */}
                                 <div className="container">
 
-                                    <a className="container btn btn-primary btnSmall centerBtn btn  btn-user btn-block"
-                                        href="#" data-toggle="modal" data-target="#vistaAgregarUsuario">
+                                    <button onClick={enviarDatos} type="button" className="container btn btn-primary btnSmall centerBtn btn  btn-user btn-block">Agregar</button>
 
-                                        Agregar
-                                    </a>
+
                                     <div className="fade" id="vistaAgregarUsuario" tabindex="-1" role="dialog"
                                         aria-labelledby="modalUserAdd" aria-hidden="true">
                                         <div className="modal-dialog" role="document">
@@ -114,4 +153,4 @@ const addUser = () => {
     )
 }
 
-export default addUser
+export default AddUser

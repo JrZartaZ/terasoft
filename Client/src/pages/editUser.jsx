@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const editUser = () => {
+const EditUser = () => {
+
+    const [getID, setID] = useState('')
+
+    useEffect( ()=> {
+        console.log("Hola")
+    },[])
+
+
     return (
         <div>
             <div id="wrapper">
@@ -28,7 +37,12 @@ const editUser = () => {
                                     <div class="form-group row">
 
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm"> Cédula/NIT:
-                                            <input type="text" class="form-control form-control-user" value="73598745"/>
+                                            <input
+                                            onChange = {(e)=>{setID=e.target.value}} 
+                                            type="text" 
+                                            class="form-control form-control-user" 
+                                            
+                                            />
                                         </div>
                                         <div class="col-sm-6 mb-3 mb-sm-0 paddingForm"> Nombre:
                                             <input type="text" class="form-control form-control-user"
@@ -95,4 +109,4 @@ const editUser = () => {
     )
 }
 
-export default editUser
+export default EditUser
