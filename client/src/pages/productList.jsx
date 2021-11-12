@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
@@ -10,7 +10,10 @@ import { formatDate } from '../utils/formatDate';
 function ProductList(){
     console.log( `ProductList Component`);
 
-    const [ products, setProducts ] = useState([]);
+    const
+        [ products, setProducts ] = useState([]),
+        [ productIdDelete, setProductIdDelete ] = useState( null ),
+        navigate = useNavigate();
 
     useEffect( () => {
         const getDataAPI = async () => {
@@ -26,6 +29,31 @@ function ProductList(){
         getDataAPI();
 
     }, [] );
+
+    const handleGetProductID = id => {
+        setProductIdDelete( id );
+    }
+
+    const handleDelete = async () => {
+
+        const
+            response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/productos/${ productIdDelete }`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            }), 
+            data  = await response.json();
+        
+        console.log( data );
+
+        setProducts( products.filter( product => (
+            product[ '_id' ] !== productIdDelete
+        )));
+
+        setProductIdDelete( null );
+        
+    }
 
 
     return (
@@ -91,7 +119,7 @@ function ProductList(){
                                                                 <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
                                                             </Link>
                                                             
-                                                            <Link to={``} className="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#deleteModal">
+                                                            <Link to={``} onClick={ () => handleGetProductID( product ._id ) } className="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#deleteModal">
                                                                 <span className="fa fa-trash fa-lg" aria-hidden="true"></span>
                                                             </Link>
                                                         </td>
@@ -149,7 +177,7 @@ function ProductList(){
                         <div className="modal-body">Selecciona "Eliminar" si estas seguro de la accion.</div>
                         <div className="modal-footer">
                             <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                            <a className="btn btn-primary" href="#">Eliminar</a>
+                            <button onClick={ handleDelete } className="btn btn-primary" type="button" data-dismiss="modal">Eliminar</button>
                         </div>
                     </div>
                 </div>
