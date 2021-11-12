@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import BarraNav from '../components/BarraNav';
-import TopBar from '../components/TopBar';
-import Footer from '../components/Footer';
+import BarraNav from '../../components/BarraNav';
+import TopBar from '../../components/TopBar';
+import Footer from '../../components/Footer';
 
 const usuariosBack = [
     {

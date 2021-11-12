@@ -8,9 +8,9 @@ import Login from "./pages/Login";
 import ProductList from "./pages/productos/productList";
 import AddProduct from "./pages/productos/addProduct";
 import EditProduct from "./pages/productos/editProduct";
-import EditUser from "./pages/editUser";
-import AddUser from "./pages/addUser";
-import UserList from "./pages/userList";
+import EditUser from "./pages/usuarios/editUser";
+import AddUser from "./pages/usuarios/addUser";
+import UserList from "./pages/usuarios/userList";
 import SalesList from "./pages/salesList";
 
 const App = ()=>{
