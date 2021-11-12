@@ -1,4 +1,5 @@
 import react, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
@@ -15,12 +16,32 @@ function AddProduct(){
         estado: ''
     });
     const { codigo, nombre, descripcion, valorUnitario, cantidad, estado } = product;
+    const navigate = useNavigate();
 
     const handleChange = event => {
         setProduct({
             ...product,
             [ event.target.name ]: event.target.value
         });
+    }
+
+    const handleSubmit = async event => {
+        event .preventDefault();
+
+        const
+            response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/productos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify( product )
+            });
+
+        /** Obtiene la data */
+        let data  = await response.json();
+        console.log( data );
+
+        navigate( '/listProduct' );
     }
 
 
@@ -46,7 +67,7 @@ function AddProduct(){
 
                             <div className="col-lg-6">
 
-                                <form className="user form-control-user">
+                                <form onSubmit={ handleSubmit } className="user form-control-user">
                                     <div className="form-group row">
 
                                         <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">

@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom';
 
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
@@ -16,7 +16,7 @@ function EditProduct(){
     });
     const { codigo, nombre, descripcion, valorUnitario, cantidad, estado } = product;
     const { id } = useParams();
-    console.log( `id: ${ id }` );
+    const navigate = useNavigate();
 
     useEffect( () => {
         const getDataAPI =  async () => {
@@ -37,6 +37,24 @@ function EditProduct(){
             ...product,
             [ event.target.name ]: event.target.value
         });
+    }
+
+    const handleSubmit = async event => {
+        event .preventDefault();
+
+        const
+            response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/productos/${ id }`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify( product )
+            }),
+            data  = await response.json();
+        
+        console.log( data );
+
+        navigate( '/listProduct' );
     }
 
 
@@ -63,7 +81,7 @@ function EditProduct(){
 
                         <div className="col-lg-6">
 
-                        <form className="user form-control-user">
+                        <form onSubmit={ handleSubmit } className="user form-control-user">
                             <div className="form-group row">
 
                                 <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
