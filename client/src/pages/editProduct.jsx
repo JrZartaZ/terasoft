@@ -1,8 +1,31 @@
+import react, { useState } from 'react';
+import { useParams } from 'react-router-dom'
+
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-function editProduct(){
+function EditProduct(){
+    const [ product, setProduct ] = useState({
+        codigo: '',
+        nombre: '',
+        descripcion: '',
+        valorUnitario: '',
+        cantidad: '',
+        estado: ''
+    });
+    const { codigo, nombre, descripcion, valorUnitario, cantidad, estado } = product;
+    const { id } = useParams();
+    console.log( `id: ${ id }` )
+
+    const handleChange = event => {
+        setProduct({
+            ...product,
+            [ event.target.name ]: event.target.value
+        });
+    }
+
+
     return (
         <div>
             <div id="wrapper">
@@ -26,40 +49,90 @@ function editProduct(){
 
                         <div className="col-lg-6">
 
-                            {/*panel de edicion de productos*/}
-                            <form className="user form-control-user">
-                                <div className="form-group row"> 
-                                    
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">  Nombre: 
-                                        <input type="text" className="form-control form-control-user"
-                                            placeholder required/>
-                                    </div>
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">  Cantidad:
-                                        <input type="number" className="form-control form-control-user"
-                                            placeholder required/>
-                                    </div>
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">  Valor unitario:
-                                        <input type="number" className="form-control form-control-user"
-                                            placeholder required/>
-                                    </div>
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Estado:
-                                        <select name="rol" id="rol">
-                                            <option>Disponible</option>
-                                            <option>No disponible</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-sm-12 paddingForm">
-                                        <label for="Textarea1">Descripción de producto:</label>
-                                        <textarea className="form-control" id="Textarea1" rows="4"></textarea>
-                                    </div>
-                                    
-                                </div>
-                                <a href="salesList.html" className="btn btnSmall centerBtn btn-primary btn-user btn-block" data-target="#registerModal" data-toggle="modal">
-                                    Actualizar
-                                </a>
+                        <form className="user form-control-user">
+                            <div className="form-group row">
 
-                            </form>
-                            
+                                <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                    Código:
+                                    <input
+                                        className="form-control form-control-user" 
+                                        type="text" 
+                                        name="codigo"
+                                        value={ codigo } 
+                                        onChange = { handleChange }
+                                    />
+                                </div>
+
+                                <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                    Nombre:
+                                    <input
+                                        className="form-control form-control-user"
+                                        type="text" 
+                                        name="nombre"
+                                        value={ nombre }
+                                        onChange = { handleChange }
+                                    />
+                                </div>
+
+                                <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                    Cantidad:
+                                    <input
+                                        className="form-control form-control-user"
+                                        type="number" 
+                                        name="cantidad"
+                                        value={ cantidad }
+                                        onChange = { handleChange }
+                                    />
+                                </div>
+
+                                <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                    Valor unitario:
+                                    <input
+                                        className="form-control form-control-user"
+                                        type="number" 
+                                        name="valorUnitario"
+                                        value={ valorUnitario }
+                                        onChange = { handleChange }
+                                    />
+                                </div>
+
+                                <div className="col-sm-6 mb-3 mb-sm-0 paddingForm ">
+                                    Estado:
+                                    <select
+                                        className="form-control"
+                                        name="estado"
+                                        value={ estado }
+                                        onChange = { handleChange }
+                                    >
+                                        <option value="">Seleccione...</option>
+                                        <option value="disponible">Disponible</option>
+                                        <option value="no disponible">No Disponible</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div className="col-sm-12">
+                                <label for="Textarea1">Descripcion de producto</label>
+                                <textarea
+                                    className="form-control form-control-user"
+                                    name="descripcion"
+                                    value={ descripcion }
+                                    onChange = { handleChange } 
+                                rows="4"></textarea>
+                            </div>
+
+                            {/*Botón de Actualizar*/}
+                            <div className="col-sm-12">
+
+                                <button
+                                    type="submit"
+                                    className="btn btn-primary btnSmall centerBtn btn  btn-user btn-block"
+                                >Editar</button>
+
+                            </div>
+
+                        </form>
 
                         </div>
 
@@ -129,4 +202,4 @@ function editProduct(){
         </div>
     );
 }
-export default editProduct;
+export default EditProduct;

@@ -1,40 +1,29 @@
-import react, {useState, useEffect} from 'react';
+import react, { useState } from 'react';
+
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
-const ProductosBackend = [
-    {
-        "id": 123,
-        "nombre": 'Toyota',
-        "descripcion": 'Blanco',
-        "valor": 1235,
-        "cantidad": 12,
-        "estado":'Nuevo'
-
-    }
-]
-
 function AddProduct(){
     {/*Defino las variables para capturar los datos de addProduct*/}
-        const [id, setId] = useState('')
-        const [nombre, setNombre] = useState('')
-        const [descrip, setDescrip] = useState('')
-        const [valor, setValor] = useState('')
-        const [cant, setCant] = useState('')
-        const [state, setState] = useState('')
+    const [ product, setProduct ] = useState({
+        codigo: '',
+        nombre: '',
+        descripcion: '',
+        valorUnitario: '',
+        cantidad: '',
+        estado: ''
+    });
+    const { codigo, nombre, descripcion, valorUnitario, cantidad, estado } = product;
 
-    {/**Funcion para mostrar en consola lo capturado */}
-    
-        const enviaDatos = ()=>{
-            console.log(`
-            ID: ${id}, 
-            nombre: ${nombre}, 
-            Descripcion: ${descrip},
-            Valor: ${valor},
-            Cantidad: ${cant},
-            Estado: ${state},`)
-        }
+    const handleChange = event => {
+        setProduct({
+            ...product,
+            [ event.target.name ]: event.target.value
+        });
+    }
+
+
     return (
         <div>
             <div id="wrapper">
@@ -58,74 +47,87 @@ function AddProduct(){
                             <div className="col-lg-6">
 
                                 <form className="user form-control-user">
-                                        <div className="form-group row">
+                                    <div className="form-group row">
 
-                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> ID:
-                                                <input 
-                                                onChange = {(e)=>{setId(e.target.value)}}
-                                                type="text" 
+                                        <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                            Código:
+                                            <input
                                                 className="form-control form-control-user" 
-                                                />
-                                            </div>
-
-                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Nombre:
-                                                <input
-                                                onChange = {(e)=>{setNombre(e.target.value)}} 
                                                 type="text" 
-                                                className="form-control form-control-user"
-                                                />
-                                            </div>
+                                                name="codigo"
+                                                value={ codigo } 
+                                                onChange = { handleChange }
+                                            />
+                                        </div>
 
-                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Cantidad:
-                                                <input
-                                                onChange = {(e)=>{setCant(e.target.value)}} 
+                                        <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                            Nombre:
+                                            <input
+                                                className="form-control form-control-user"
+                                                type="text" 
+                                                name="nombre"
+                                                value={ nombre }
+                                                onChange = { handleChange }
+                                            />
+                                        </div>
+
+                                        <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                            Cantidad:
+                                            <input
+                                                className="form-control form-control-user"
                                                 type="number" 
-                                                className="form-control form-control-user"
-                                                />
-                                            </div>
+                                                name="cantidad"
+                                                value={ cantidad }
+                                                onChange = { handleChange }
+                                            />
+                                        </div>
 
-                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Valor unitario:
-                                                <input
-                                                onChange = {(e)=>{setValor(e.target.value)}} 
+                                        <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                            Valor unitario:
+                                            <input
+                                                className="form-control form-control-user"
                                                 type="number" 
-                                                className="form-control form-control-user"
-                                                />
-                                            </div>
-
-                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm "> Estado:
-                                                <select
-                                                onChange = {(e)=>{setState(e.target.value)}} 
-                                                name="estado" 
-                                                id="Estado">
-                                                    <option value="seleccionar">Seleccionar</option>
-                                                    <option value="autorizado">Disponible</option>
-                                                    <option value="noautorizado">No Disponible</option>
-                                                </select>
-                                            </div>
-
+                                                name="valorUnitario"
+                                                value={ valorUnitario }
+                                                onChange = { handleChange }
+                                            />
                                         </div>
 
-                                        <div className="col-sm-12">
-                                            <label for="Textarea1">Descripcion de producto</label>
-                                            <textarea
-                                            onChange = {(e)=>{setDescrip(e.target.value)}} 
-                                            className="form-control" 
-                                            id="Textarea1" 
-                                            rows="4"></textarea>
+                                        <div className="col-sm-6 mb-3 mb-sm-0 paddingForm ">
+                                            Estado:
+                                            <select
+                                                className="form-control"
+                                                name="estado"
+                                                value={ estado }
+                                                onChange = { handleChange }
+                                            >
+                                                <option value="">Seleccione...</option>
+                                                <option value="disponible">Disponible</option>
+                                                <option value="no disponible">No Disponible</option>
+                                            </select>
                                         </div>
 
-                                        {/*Botón de Actualizar*/}
-                                        <div className="container">
-                                            
-                                            <br/>
-                                            <button
-                                                onClick = {enviaDatos}
-                                                type = "button"
-                                                className="container btn btn-primary btnSmall centerBtn btn  btn-user btn-block"
+                                    </div>
 
-                                            >agregar</button>
+                                    <div className="col-sm-12">
+                                        <label for="Textarea1">Descripcion de producto</label>
+                                        <textarea
+                                            className="form-control form-control-user"
+                                            name="descripcion"
+                                            value={ descripcion }
+                                            onChange = { handleChange } 
+                                        rows="4"></textarea>
+                                    </div>
 
-                                        </div>
+                                    {/*Botón de Actualizar*/}
+                                    <div className="col-sm-12">
+
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary btnSmall centerBtn btn  btn-user btn-block"
+                                        >Agregar</button>
+
+                                    </div>
 
                                 </form>
                                     
