@@ -1,4 +1,4 @@
-import react, { useState } from 'react';
+import react, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 
 import BarraNav from '../components/BarraNav';
@@ -16,7 +16,21 @@ function EditProduct(){
     });
     const { codigo, nombre, descripcion, valorUnitario, cantidad, estado } = product;
     const { id } = useParams();
-    console.log( `id: ${ id }` )
+    console.log( `id: ${ id }` );
+
+    useEffect( () => {
+        const getDataAPI =  async () => {
+            const
+                response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/productos/${ id }` ),
+                data = await response .json();
+
+            console.log( data );
+            setProduct( data.product );
+        }
+
+        getDataAPI();
+
+    }, [ id ] );
 
     const handleChange = event => {
         setProduct({
