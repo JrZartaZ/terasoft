@@ -44,7 +44,6 @@ const BarraNav = () => {
             <h6 className="collapse-header">GESTIONAR USUARIOS:</h6>
             <a className="collapse-item" href="/userList">Listar Usuarios</a>
             <a className="collapse-item" href="/addUser">Agregar Usuario</a>
-            <a className="collapse-item" href="/editUser">Actualizar Usuario</a>
         </div>
     </div>
 </li>
