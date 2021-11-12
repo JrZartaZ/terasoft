@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
+
+import { formatDate } from '../utils/formatDate';
 
 function ProductList(){
     console.log( `ProductList Component`);
@@ -63,29 +67,35 @@ function ProductList(){
                                                 <th>Valor unitario</th>
                                                 <th>Cantidad</th>
                                                 <th>Estado</th>
+                                                <th>Fecha venta</th>
                                                 <th>Accion</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {products.map((product)=>{
                                                 return(
-                                                <tr>
-                                                <td>{product.codigo}</td>
-                                                <td>{product.nombre}</td>
-                                                <td>{product.descripcion}</td>
-                                                <td>{product.valorUnitario}</td>
-                                                <td>{product.cantidad}</td>
-                                                <td>{product.estado}</td>
-                                                <td>
-                                                    <a href="/editProduct" className="btn btn-primary btn-circle btn-sm">
-                                                        <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
-                                                    </a>
-                                                    
-                                                    <a href="#" className="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#deleteModal">
-                                                        <span className="fa fa-trash fa-lg" aria-hidden="true"></span>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                                    <tr key={ product._id }>
+                                                        <td>{product.codigo}</td>
+                                                        <td>{product.nombre}</td>
+                                                        <td>{product.descripcion}</td>
+                                                        <td>{product.valorUnitario}</td>
+                                                        <td>{product.cantidad}</td>
+                                                        <td>{product.estado}</td>
+                                                        <td>{ formatDate( product.fechaVenta ) }</td>
+                                                        <td>
+                                                            <Link
+                                                                to={{
+                                                                    pathname: `/editProduct/${ product ._id }`
+                                                                  }}
+                                                                className="btn btn-primary btn-circle btn-sm">
+                                                                <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
+                                                            </Link>
+                                                            
+                                                            <Link to={``} className="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#deleteModal">
+                                                                <span className="fa fa-trash fa-lg" aria-hidden="true"></span>
+                                                            </Link>
+                                                        </td>
+                                                    </tr>
                                                 )
                                             })}
                                             
