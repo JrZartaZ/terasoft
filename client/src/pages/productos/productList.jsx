@@ -76,9 +76,9 @@ function ProductList(){
 
                             {/*Add producto icon*/}
                             <div>
-                                <a href="addProduct.html" className="btn btn-primary btn-circle btn-sm">
-                                <i href="addProduct.html" className="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
-                                </a>
+                                <Link to={ '/addProduct' } className="btn btn-primary btn-circle btn-sm">
+                                    <i className="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+                                </Link>
                             </div>
 
                             {/*DataTales Example*/}
