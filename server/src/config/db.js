@@ -2,16 +2,21 @@ const mongoose = require("mongoose");
 require("dotenv").config({ path: ".env" });
 
 const ConnectDatabase = async () => {
-  try {
-    await mongoose.connect(process.env.DB_MONGO_ATLAS, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Connected MongoDB");
-  } catch (error) {
-    console.log(error);
-    process.exit(1); // Detiene la app
-  }
+
+	console.log( process.env.DB_MONGO_URI );
+
+	mongoose.connect( process.env.DB_MONGO_URI, {
+			useNewUrlParser: true,
+			useFindAndModify: false,
+			useUnifiedTopology: true
+		}
+	);
+
+	mongoose .connection .on( 'error', console.error.bind(console, `Connection error database: `));
+	mongoose .connection .once( 'open', () => {
+		console.log( `Connected successfully, Database name: ${ mongoose .connections[ 0 ] .name }` );
+	});
+
 };
 
 module.exports = ConnectDatabase;
