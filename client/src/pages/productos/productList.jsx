@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-import BarraNav from '../components/BarraNav';
-import TopBar from '../components/TopBar';
-import Footer from '../components/Footer';
+import BarraNav from '../../components/BarraNav';
+import TopBar from '../../components/TopBar';
+import Footer from '../../components/Footer';
 
-import { formatDate } from '../utils/formatDate';
+import { formatDate } from '../../utils/formatDate';
 
 function ProductList(){
     console.log( `ProductList Component`);

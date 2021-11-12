@@ -1,9 +1,9 @@
 import react, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import BarraNav from '../components/BarraNav';
-import TopBar from '../components/TopBar';
-import Footer from '../components/Footer';
+import BarraNav from '../../components/BarraNav';
+import TopBar from '../../components/TopBar';
+import Footer from '../../components/Footer';
 
 function AddProduct(){
     {/*Defino las variables para capturar los datos de addProduct*/}
@@ -35,11 +35,10 @@ function AddProduct(){
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 body: JSON.stringify( product )
-            });
-
-        /** Obtiene la data */
-        let data  = await response.json();
-        console.log( data );
+            }), 
+            data  = await response.json();
+        
+            console.log( data );
 
         navigate( '/listProduct' );
     }
