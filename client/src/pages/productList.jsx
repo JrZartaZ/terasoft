@@ -1,41 +1,27 @@
-import React, {useEffec, useEstate } from 'react';
+import React, { useState, useEffect } from 'react'
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
-import { useEffect } from 'react';
 
-const ProductosBackend = [
-    {
-        "id": 123,
-        "nombre": 'Toyota',
-        "descripcion": 'Blanco',
-        "valor": 1235,
-        "cantidad": 12,
-        "estado":'Nuevo'
+function ProductList(){
+    console.log( `ProductList Component`);
 
-    },
-    {
-        "id": 123,
-        "nombre": 'Toyota',
-        "descripcion": 'Blanco',
-        "valor": 1235,
-        "cantidad": 12,
-        "estado":'Nuevo'
+    const [ products, setProducts ] = useState([]);
 
-    },
-    {
-        "id": 123,
-        "nombre": 'Toyota',
-        "descripcion": 'Blanco',
-        "valor": 1235,
-        "cantidad": 12,
-        "estado":'Nuevo'
+    useEffect( () => {
+        const getDataAPI = async () => {
+            const
+                response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/productos` ),
+                data = await response .json();
 
-    }
-]
+            //console.log( data );
+            setProducts( data.products );
 
-function productList({products = ProductosBackend}){
+        }
 
+        getDataAPI();
+
+    }, [] );
 
 
     return (
@@ -84,10 +70,10 @@ function productList({products = ProductosBackend}){
                                             {products.map((product)=>{
                                                 return(
                                                 <tr>
-                                                <td>{product.id}</td>
+                                                <td>{product.codigo}</td>
                                                 <td>{product.nombre}</td>
                                                 <td>{product.descripcion}</td>
-                                                <td>{product.valor}</td>
+                                                <td>{product.valorUnitario}</td>
                                                 <td>{product.cantidad}</td>
                                                 <td>{product.estado}</td>
                                                 <td>
@@ -163,4 +149,4 @@ function productList({products = ProductosBackend}){
     );
 }
 
-export default productList;
+export default ProductList;
