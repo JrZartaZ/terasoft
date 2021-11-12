@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 
 const AddUser = () => {
     {/**Captura de datos en inputs */}
+    {/**variables del formulario */}
     let [Ide, setID] = useState('');
     let [nombre, setNombre] = useState('');
     let [correo, setCorreo] = useState('');
@@ -125,7 +126,11 @@ const AddUser = () => {
                                 {/**<!-- Botón de Actualizar--> */}
                                 <div className="container">
 
-                                    <button onClick={enviarDatos} type="button" className="container btn btn-primary btnSmall centerBtn btn  btn-user btn-block">Agregar</button>
+                                    <button 
+                                    onClick={enviarDatos} 
+                                    type="button" 
+                                    className="container btn btn-primary btnSmall centerBtn btn  btn-user btn-block"
+                                    >Agregar</button>
 
 
                                     <div className="fade" id="vistaAgregarUsuario" tabindex="-1" role="dialog"

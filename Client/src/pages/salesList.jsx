@@ -1,9 +1,42 @@
+import react, {useState} from 'react'
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
+const VentasBackend = [
+  {
+      "id": 123,
+      "fecha": 'Toyota',
+      "nombre": 'Blanco',
+      "cedula": 1235,
+      "producto": 12,
+      "cantidad":5,
+      "valor":56645
+  },
+  {
+    "id": 123,
+    "fecha": 'Toyota',
+    "nombre": 'Blanco',
+    "cedula": 1235,
+    "producto": 12,
+    "cantidad":5,
+    "valor":56645
+},
+{
+  "id": 123,
+  "fecha": 'Toyota',
+  "nombre": 'Blanco',
+  "cedula": 1235,
+  "producto": 12,
+  "cantidad":5,
+  "valor":56645
+}
+]
 
-function Index() {
+function SalesList({ventas = VentasBackend}) {
+
+  
+
   return (
     <div>
 
@@ -54,8 +87,31 @@ function Index() {
                     </thead>
 
                     <tbody>
+
                       {/* Podemos imprimir un array de objetos HTML (que es un array de DOM ) */}
-                      
+                      {ventas.map((venta)=>{
+                        return(
+                        <tr>
+                          <th>{venta.id}</th>
+                          <th>{venta.fecha}</th>
+                          <th>{venta.nombre}</th>
+                          <th>{venta.cedula}</th>
+                          <th>{venta.producto}</th>
+                          <th>{venta.cantidad}</th>
+                          <th>{venta.valor}</th>
+                          <th>
+                          <a href="updateUser.html" className="btn btn-primary btn-circle btn-sm">
+                            <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
+                          </a>
+
+                          <a href="#" className="btn btn-primary btn-circle btn-sm" >
+                            <span className="fa fa-trash fa-lg" aria-hidden="true"></span>
+                          </a>
+                          </th>
+                        </tr>
+                        )
+                      })}
+
                     </tbody>
                   </table>
                 </div>
@@ -129,4 +185,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default SalesList;

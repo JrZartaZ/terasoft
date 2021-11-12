@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom";
+import react, {useState} from 'react'
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
 
 
 function AddSale() {
+
+  const [id, setid] = useState('')
+  const [fecha, setFecha] = useState('')
+  const [nombre, setNombre] = useState('')
+  const [cedula, setCedula] = useState('')
+  const [Product, setProduct] = useState('')
+  const [Cant, setCant] = useState('')
+  const [Valor, setValor] = useState('')
+
   return (
     <div>
       <div id="wrapper">

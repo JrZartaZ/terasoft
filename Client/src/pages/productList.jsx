@@ -1,8 +1,43 @@
+import React, {useEffec, useEstate } from 'react';
 import BarraNav from '../components/BarraNav';
 import TopBar from '../components/TopBar';
 import Footer from '../components/Footer';
+import { useEffect } from 'react';
 
-function productList(){
+const ProductosBackend = [
+    {
+        "id": 123,
+        "nombre": 'Toyota',
+        "descripcion": 'Blanco',
+        "valor": 1235,
+        "cantidad": 12,
+        "estado":'Nuevo'
+
+    },
+    {
+        "id": 123,
+        "nombre": 'Toyota',
+        "descripcion": 'Blanco',
+        "valor": 1235,
+        "cantidad": 12,
+        "estado":'Nuevo'
+
+    },
+    {
+        "id": 123,
+        "nombre": 'Toyota',
+        "descripcion": 'Blanco',
+        "valor": 1235,
+        "cantidad": 12,
+        "estado":'Nuevo'
+
+    }
+]
+
+function productList({products = ProductosBackend}){
+
+
+
     return (
         <div>
             <div id="wrapper">
@@ -46,13 +81,15 @@ function productList(){
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>123</td>
-                                                <td>Fiat uno Way Pop</td>
-                                                <td>Color rojo</td>
-                                                <td>45.990.000</td>
-                                                <td>5</td>
-                                                <td>Nuevo</td>
+                                            {products.map((product)=>{
+                                                return(
+                                                <tr>
+                                                <td>{product.id}</td>
+                                                <td>{product.nombre}</td>
+                                                <td>{product.descripcion}</td>
+                                                <td>{product.valor}</td>
+                                                <td>{product.cantidad}</td>
+                                                <td>{product.estado}</td>
                                                 <td>
                                                     <a href="/editProduct" className="btn btn-primary btn-circle btn-sm">
                                                         <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
@@ -63,23 +100,10 @@ function productList(){
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>456</td>
-                                                <td>Fiat Mobi Like</td>
-                                                <td>Color blanco</td>
-                                                <td>42.990.000</td>
-                                                <td>2</td>
-                                                <td>Nuevo</td>
-                                                <td>
-                                                    <a href="editProduct.html" className="btn btn-primary btn-circle btn-sm">
-                                                        <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
-                                                    </a>
-                                                    
-                                                    <a href="#" className="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#deleteModal">
-                                                        <span className="fa fa-trash fa-lg" aria-hidden="true"></span>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                                )
+                                            })}
+                                            
+                                            
                                         </tbody>
                                     </table>
                                 </div>

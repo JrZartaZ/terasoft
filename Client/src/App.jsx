@@ -11,7 +11,7 @@ import EditProduct from "./pages/editProduct";
 import EditUser from "./pages/editUser";
 import AddUser from "./pages/addUser";
 import UserList from "./pages/userList";
-import Index from "./pages";
+import SalesList from "./pages/salesList";
 
 const App = ()=>{
   return (
@@ -25,7 +25,7 @@ const App = ()=>{
 
           <Route path="/editSale" element={<EditSale />} />
           <Route path="/addSale" element={<AddSale />} />
-          <Route path="/listSale" element={<Index />} />
+          <Route path="/listSale" element={<SalesList />} />
 
           <Route path="/editProduct" element={<EditProduct />} />
           <Route path="/addProduct" element={<AddProduct />} />
