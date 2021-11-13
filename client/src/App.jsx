@@ -23,7 +23,7 @@ const App = ()=>{
           <Route path="/add-user" element={<AddUser />} />
           <Route path="/users" element={<UserList />} />
 
-          <Route path="/edit-sale" element={<EditSale />} />
+          <Route path="/edit-sale/:id" element={<EditSale />} />
           <Route path="/add-sale" element={<AddSale />} />
           <Route path="/sales" element={<SalesList />} />
 
