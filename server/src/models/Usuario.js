@@ -2,8 +2,8 @@ const mongoose = require("mongoose"),
 	UsuariosSchema = mongoose.Schema(
 		{
 			cedula: String,
-			nombre: String,
-			apellido: String,
+			nombres: String,
+			ciudad: String,
 			direccion: String,
 			telefono: String,
 			correo: String,

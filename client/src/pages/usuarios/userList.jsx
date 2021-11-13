@@ -1,44 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+
 import BarraNav from '../../components/BarraNav';
 import TopBar from '../../components/TopBar';
 import Footer from '../../components/Footer';
 
-const usuariosBack = [
-    {
-        "Nit": 123,
-        "Nombre":"Hugo",
-        "Email":"H@gmail.com",
-        "Telefono":1234,
-        "Ciudad":"Pasto",
-        "Direccion":"calle",
-        "Rol":"adm",
-        "Estado":"Activo"
-    },
-    {
-        "Nit": 123,
-        "Nombre":"Hugo",
-        "Email":"H@gmail.com",
-        "Telefono":1234,
-        "Ciudad":"Pasto",
-        "Direccion":"calle",
-        "Rol":"adm",
-        "Estado":"Activo"
+const UserList = () => {
+    console.log( `UserList Component`);
+
+    const
+        [ users, setUsers ] = useState([]),
+        [ userIdDelete, setUserIdDelete ] = useState( null ),
+        navigate = useNavigate();
+
+    useEffect( () => {
+        const getDataAPI = async () => {
+            const
+                response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/usuarios` ),
+                data = await response .json();
+
+            //console.log( data );
+            setUsers( data.users );
+
+        }
+
+        getDataAPI();
+
+    }, [] );
+
+    const handleGetUserID = id => {
+        setUserIdDelete( id );
     }
-]
 
+    const handleDelete = async () => {
 
-const UserList = ({userList = usuariosBack}) => {
+        const
+            response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/usuarios/${ userIdDelete }`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                }
+            }), 
+            data  = await response.json();
+        
+        console.log( data );
 
-    const [usuarios, setUsuarios] = useState([])
+        setUsers( users.filter( user => (
+            user[ '_id' ] !== userIdDelete
+        )));
 
-    useEffect(() => {
-        //Obtener lista de vehiculos
-        setUsuarios(usuariosBack)
-    }, [])
+        setUserIdDelete( null );
+        
+    }
 
-    useEffect(() => {
-        console.log(userList);
-    }, [userList])
 
     return (
         <div>
@@ -47,91 +61,137 @@ const UserList = ({userList = usuariosBack}) => {
                 <BarraNav />
                 <div id="content-wrapper" className="d-flex flex-column">
             
-            {/**<!-- Main Content --> */}
-            <div id="content">
-            
-                    {/**<!-- Topbar --> */}
-                    <TopBar />
+                    {/**<!-- Main Content --> */}
+                    <div id="content">
+                    
+                            {/**<!-- Topbar --> */}
+                            <TopBar />
 
-                    {/**<!-- Begin Page Content --> */}
-                    <div className="container-fluid">
+                            {/**<!-- Begin Page Content --> */}
+                            <div className="container-fluid">
 
-                        {/**<!-- Page Heading --> */}
-                        <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 className="h3 mb-0 text-gray-800">Listar Usuarios</h1>
-                        </div>
+                                {/**<!-- Page Heading --> */}
+                                <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <h1 className="h3 mb-0 text-gray-800">Listar Usuarios</h1>
+                                </div>
 
-                        <div>
-                            <a href="addUser.html" className="btn btn-primary btn-circle btn-sm">
-                                <i href="addUser.html" className="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+                                <div>
+                                    <Link to={ '/add-user' } className="btn btn-primary btn-circle btn-sm">
+                                        <i className="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
 
-                            </a>
-                        </div>
+                                    </Link>
+                                </div>
 
-                        <div className="card-body">
+                                <div className="card-body">
 
-                            <div className="table-responsive">
-                                <table className="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Cédula / NIT</th>
-                                            <th>Nombre</th>
-                                            <th>Email</th>
-                                            <th>Teléfono</th>
-                                            <th>Ciudad</th>
-                                            <th>Dirección</th>
-                                            <th>Rol</th>
-                                            <th>Estado</th>
-                                            <th>Acción</th>
-                                        </tr>
-                                    </thead>
-                                
-                                    <tbody>
-                                        {userList.map((user)=>{
-                                            return(
+                                    <div className="table-responsive">
+                                        <table className="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Cédula / NIT</th>
+                                                    <th>Nombres</th>
+                                                    <th>Email</th>
+                                                    <th>Teléfono</th>
+                                                    <th>Ciudad</th>
+                                                    <th>Dirección</th>
+                                                    <th>Rol</th>
+                                                    <th>Estado</th>
+                                                    <th>Acción</th>
+                                                </tr>
+                                            </thead>
+                                        
+                                            <tbody>
+                                                { users.map((user)=>{
+                                                    return(
 
-                                            <tr>
-                                                <td>{user.Nit}</td>
-                                                <td>{user.Nombre}</td>
-                                                <td>{user.Email}</td>
-                                                <td>{user.Telefono}</td>
-                                                <td>{user.Ciudad}</td>
-                                                <td>{user.Direccion}</td>
-                                                <td>{user.Rol}</td>
-                                                <td>{user.Estado}</td>
-                                                <td>
-                                                    <a href="updateUser.html" className="btn btn-primary btn-circle btn-sm">
-                                                        <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
-                                                    </a>
+                                                        <tr key={ user._id }>
+                                                            <td>{ user .cedula }</td>
+                                                            <td>{ user .nombres }</td>
+                                                            <td>{ user .correo }</td>
+                                                            <td>{ user .telefono }</td>
+                                                            <td>{ user .ciudad }</td>
+                                                            <td>{ user. direccion }</td>
+                                                            <td>{ user .rol }</td>
+                                                            <td>{ user .estado }</td>
+                                                            <td>
+                                                                <Link
+                                                                    to={{
+                                                                        pathname: `/edit-user/${ user ._id }`
+                                                                        }}
+                                                                    className="btn btn-primary btn-circle btn-sm">
+                                                                    <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
+                                                                </Link>
 
-                                                    <a href="#" className="btn btn-primary btn-circle btn-sm" >
-                                                        <span className="fa fa-trash fa-lg" aria-hidden="true"></span>
-                                                    </a>
+                                                                <Link to={``} onClick={ () => handleGetUserID( user ._id ) } className="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#deleteModal">
+                                                                    <span className="fa fa-trash fa-lg" aria-hidden="true"></span>
+                                                                </Link>
 
-                                                </td>
-                                            </tr>
+                                                            </td>
+                                                        </tr>
 
-                                            );
-                                        })}
+                                                    );
+                                                })}
 
-                                    </tbody>
-                                </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            {/**<!-- /.container-fluid --> */}
+
                     </div>
-                    {/**<!-- /.container-fluid --> */}
-
-            </div>
-            {/**<!-- End of Main Content --> */}
-
-            {/**<!-- Footer --> */}
-            <Footer />   
-            {/**<!-- End of Footer --> */}
+                
                 </div> 
             </div>
-        
-        </div>
-    )
-    }
+            <Footer />
+            {/* End of Page Wrapper */}
 
-export default UserList
+            {/*Scroll to Top Button*/}
+            <a className="scroll-to-top rounded" href="#page-top">
+                <i className="fas fa-angle-up"></i>
+            </a>
+
+            {/*Logout Modal*/}
+            <div className="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Seguro que quieres salir?</h5>
+                            <button className="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">Selecciona "Salir" si estas seguro de terminar tu actual sesion</div>
+                        <div className="modal-footer">
+                            <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                            <a className="btn btn-primary" href="login.html">Salir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/*Modal para eliminar*/}
+            <div className="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">Seguro que quieres eliminar este producto?</h5>
+                            <button className="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">Selecciona "Eliminar" si estas seguro de la accion.</div>
+                        <div className="modal-footer">
+                            <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                            <button onClick={ handleDelete } className="btn btn-primary" type="button" data-dismiss="modal">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    );
+}
+
+export default UserList;

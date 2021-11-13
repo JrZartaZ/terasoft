@@ -19,9 +19,9 @@ const App = ()=>{
       
         <Routes>
           
-          <Route path="/editUser" element={<EditUser />} />
-          <Route path="/addUser" element={<AddUser />} />
-          <Route path="/userList" element={<UserList />} />
+          <Route path="/edit-user/:id" element={<EditUser />} />
+          <Route path="/add-user" element={<AddUser />} />
+          <Route path="/users" element={<UserList />} />
 
           <Route path="/editSale" element={<EditSale />} />
           <Route path="/addSale" element={<AddSale />} />

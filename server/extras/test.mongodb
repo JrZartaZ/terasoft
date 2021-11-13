@@ -6,8 +6,25 @@ use('terasoft');
 show collections
 
 db.productos.find();
-db.productos.find({ nombre: 'Moto g5 plus' });
+db.productos.find({ '_id': ObjectId( '618ea81b01c091295ac44cb4' ) });
 
+db.usuarios.find();
+db.usuarios.updateOne(
+    { '_id': ObjectId( '618eeaa21f6bc477b5ad9016' ) },
+    { $set: { 'ciudad': 'Bogota' } }
+);
+
+db.usuarios.update({ _id: ObjectId( '618eeaa21f6bc477b5ad9016' )},  { $set: { ciudad: 'Cali' }})
+
+// Agrega un campo con un nueva valor
+db.usuarios.aggregate([
+    { $match: { _id: ObjectId( '618eebeb3a9b6b788be6d51d' ) } },
+    {
+        $addFields: {
+            ciudad: "Cali"
+        }
+    }
+]);
 
 db.terasoft.drop();
 
