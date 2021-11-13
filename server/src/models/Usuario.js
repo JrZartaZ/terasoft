@@ -14,7 +14,7 @@ const mongoose = require("mongoose"),
 			},
 			rol: {
 				type: String,
-    			enum: [ 'administador', 'vendedor' ],
+    			enum: [ 'administrador', 'vendedor' ],
 				default: 'vendedor'
 			}
 		}

@@ -1,178 +1,207 @@
-import React, { useEffect, useState } from "react";
+import react, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import BarraNav from '../../components/BarraNav';
 import TopBar from '../../components/TopBar';
 import Footer from '../../components/Footer';
 
 const AddUser = () => {
-    {/**Captura de datos en inputs */}
-    {/**variables del formulario */}
-    let [Ide, setID] = useState('');
-    let [nombre, setNombre] = useState('');
-    let [correo, setCorreo] = useState('');
-    let [telefono, setTelefono] = useState('');
-    let [ciudad, setCiudad] = useState('');
-    let [direccion, setDireccion] = useState('');
-    let [rol, setRol] = useState('');
-    let [estado, setEstado] = useState('');
+    const [ user, setUser ] = useState({
+        cedula: '',
+        nombres: '',
+        ciudad: '',
+        direccion: '',
+        telefono: '',
+        correo: '',
+        estado: '',
+        rol: ''
+    });
+    const { cedula, nombres, apellido, ciudad, direccion, telefono, correo, estado, rol } = user;
+    const navigate = useNavigate();
 
-    {/** Funcion que activa el boton para enviar datos */}
-    const enviarDatos = ()=>{
-        console.log(`
-        ID: ${Ide}, 
-        nombre: ${nombre}, 
-        correo: ${correo},
-        telefono: ${telefono},
-        ciudad: ${ciudad},
-        direccion: ${direccion},
-        rol: ${rol},
-        estado: ${estado}`)
+    const handleChange = event => {
+        setUser({
+            ...user,
+            [ event.target.name ]: event.target.value
+        });
     }
 
-    {/**Trae los datos del back para mostrar en inputs */}
-    useEffect(() => {
+    const handleSubmit = async event => {
+        event .preventDefault();
+
+        const
+            response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/usuarios`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify( user )
+            }), 
+            data  = await response.json();
         
-    }, [])
+            console.log( data );
+
+        navigate( '/users' );
+    }
+
 
     return (
         <div>
 
             <div id="wrapper">
-            <BarraNav />
-                {/**<!-- Main Content --> */}
-            <div id="content">
-            
-                {/**<!-- Topbar --> */}
-                <TopBar/>
-                {/**<!-- End of Topbar --> */}
+                <BarraNav />
+                {/*Content Wrapper*/}
+                <div id="content-wrapper" className="d-flex flex-column">
 
-                {/**<!-- Begin Page Content --> */}
-                <div classNameName="container-fluid">
+                    {/**<!-- Main Content --> */}
+                    <div id="content">
+                    
+                        {/**<!-- Topbar --> */}
+                        <TopBar/>
+                        {/**<!-- End of Topbar --> */}
 
-                    {/**<!-- Page Heading --> */}
-                    <h1 className="h3 mb-4 text-gray-800 center">Agregar Usuario</h1>
+                        {/**<!-- Begin Page Content --> */}
+                        <div classNameName="container-fluid">
 
-                    <div className="row center">
-                        <div className="col-lg-6 ">
-                            <form className="user form-control-user">
-                                <div className="form-group row">
+                            {/**<!-- Page Heading --> */}
+                            <h1 className="h3 mb-4 text-gray-800 center">Agregar Usuario</h1>
 
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Cédula/NIT:
-                                        <input
-                                        onChange={(e)=>{setID(e.target.value)}} 
-                                        type="text" 
-                                        className="form-control form-control-user" 
-                                        />
-                                    </div>
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Nombre:
-                                        <input
-                                        onChange={(e)=>{setNombre(e.target.value)}} 
-                                        type="text" 
-                                        className="form-control form-control-user"
-                                        />
-                                    </div>
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Correo Electrónico:
-                                        <input
-                                        onChange={(e)=>{setCorreo(e.target.value)}} 
-                                        type="text" 
-                                        className="form-control form-control-user"
-                                        />
-                                    </div>
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Teléfono:
-                                        <input
-                                        onChange={(e)=>{setTelefono(e.target.value)}}  
-                                        type="text" 
-                                        className="form-control form-control-user"
-                                        />
-                                    </div>
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Ciudad:
-                                        <input
-                                        onChange={(e)=>{setCiudad(e.target.value)}}  
-                                        type="text" 
-                                        className="form-control form-control-user"
-                                        />
-                                    </div>
+                            <div className="row center">
+                                <div className="col-lg-6 ">
+                                    <form onSubmit={ handleSubmit } class="user form-control-user">
+                                        <div class="form-group row">
 
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm"> Dirección:
-                                        <input
-                                        onChange={(e)=>{setDireccion(e.target.value)}} 
-                                        type="text" 
-                                        className="form-control form-control-user"
-                                        />
-                                    </div>
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm "> Rol:
-                                        <select
-                                        onChange={(e)=>{setRol(e.target.value)}} 
-                                        name="rol" 
-                                        id="rol">
-                                            <option value="seleccionar">Seleccionar</option>
-                                            <option value="admin">Administrador</option>
-                                            <option value="vendedor">Vendedor</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="col-sm-6 mb-3 mb-sm-0 paddingForm "> Estado:
-                                        <select
-                                        onChange={(e)=>{setEstado(e.target.value)}}  
-                                        name="estado" 
-                                        id="Estado">
-                                            <option value="seleccionar">Seleccionar</option>
-                                            <option value="autorizado">Autorizado</option>
-                                            <option value="noautorizado">No Autorizado</option>
-                                            <option value="pendiente">Pendiente</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                {/**<!-- Botón de Actualizar--> */}
-                                <div className="container">
-
-                                    <button 
-                                    onClick={enviarDatos} 
-                                    type="button" 
-                                    className="container btn btn-primary btnSmall centerBtn btn  btn-user btn-block"
-                                    >Agregar</button>
-
-
-                                    <div className="fade" id="vistaAgregarUsuario" tabindex="-1" role="dialog"
-                                        aria-labelledby="modalUserAdd" aria-hidden="true">
-                                        <div className="modal-dialog" role="document">
-                                            <div className="modal-content">
-                                                <div className="modal-header">
-                                                    <h5 className="modal-title" id="modalUserAdd">Agregar Usuario</h5>
-                                                    <button className="close" type="button" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                {/**<!-- Contenido del Modal --> */}
-                                                <div className="modal-body">
-                                                    <p>El usuario se ha agregado correctamente.</p>
-                                                    <p>¿Desea continuar agregando usuarios?</p>
-                                                </div>
-                                                {/**<!--Footer --> */}
-                                            
+                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                                Cédula/NIT:
+                                                <input
+                                                    className="form-control form-control-user" 
+                                                    type="text" 
+                                                    name="cedula"
+                                                    value={ cedula } 
+                                                    onChange = { handleChange }
+                                                />
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                            </form>
+                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                                Nombres:
+                                                <input
+                                                    className="form-control form-control-user"
+                                                    type="text" 
+                                                    name="nombres"
+                                                    value={ nombres }
+                                                    onChange = { handleChange }
+                                                />
+                                            </div>
+
+                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                                Correo Electrónico:
+                                                <input
+                                                    className="form-control form-control-user"
+                                                    type="email" 
+                                                    name="correo"
+                                                    value={ correo }
+                                                    onChange = { handleChange }
+                                                />
+                                            </div>
+
+                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                                Teléfono:
+                                                <input
+                                                    className="form-control form-control-user"
+                                                    type="tel" 
+                                                    name="telefono"
+                                                    value={ telefono }
+                                                    onChange = { handleChange }
+                                                />
+                                            </div>
+
+                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm ">
+                                                Ciudad:
+                                                <select
+                                                    className="form-control"
+                                                    name="ciudad"
+                                                    value={ ciudad }
+                                                    onChange = { handleChange }
+                                                >
+                                                    <option value="">Seleccione...</option>
+                                                    <option value="Bogotá">Bogotá</option>
+                                                    <option value="Cali">Cali</option>
+                                                    <option value="Medellín">Medellín</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
+                                                Dirección:
+                                                <input
+                                                    className="form-control form-control-user"
+                                                    type="tel" 
+                                                    name="direccion"
+                                                    value={ direccion }
+                                                    onChange = { handleChange }
+                                                />
+                                            </div>
+
+                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm ">
+                                                Rol:
+                                                <select
+                                                    className="form-control"
+                                                    name="rol"
+                                                    value={ rol }
+                                                    onChange = { handleChange }
+                                                >
+                                                    <option value="">Seleccione...</option>
+                                                    <option value="administrador">Administrador</option>
+                                                    <option value="vendedor">Vendedor</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="col-sm-6 mb-3 mb-sm-0 paddingForm ">
+                                                Estado:
+                                                <select
+                                                    className="form-control"
+                                                    name="estado"
+                                                    value={ estado }
+                                                    onChange = { handleChange }
+                                                >
+                                                    <option value="">Seleccione...</option>
+                                                    <option value="pendiente">Pendiente</option>
+                                                    <option value="autorizado">Autorizado</option>
+                                                    <option value="no autorizado">No autorizado</option>
+                                                </select>
+                                            </div>    
+
+                                        </div>
+
+                                        {/*Botón de Actualizar*/}
+                                        <div className="col-sm-12">
+
+                                            <button
+                                                type="submit"
+                                                className="btn btn-primary btnSmall centerBtn btn  btn-user btn-block"
+                                            >Editar</button>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                {/**<!-- /.container-fluid --> */}
+
+                            </div>
+                            {/**<!-- End of Main Content --> */}
+
 
                         </div>
-                        {/**<!-- /.container-fluid --> */}
+                        {/**<!-- End of Content Wrapper --> */}
 
                     </div>
-                    {/**<!-- End of Main Content --> */}
 
+                    <Footer/>
 
                 </div>
-                {/**<!-- End of Content Wrapper --> */}
-
             </div>
-            </div>
-            
         </div>
-    )
+    );
 }
 
-export default AddUser
+export default AddUser;
