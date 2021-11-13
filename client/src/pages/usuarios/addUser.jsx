@@ -8,7 +8,7 @@ import Footer from '../../components/Footer';
 const AddUser = () => {
     const [ user, setUser ] = useState({
         cedula: '',
-        nombres: '',
+        nombre: '',
         ciudad: '',
         direccion: '',
         telefono: '',
@@ -16,7 +16,7 @@ const AddUser = () => {
         estado: '',
         rol: ''
     });
-    const { cedula, nombres, apellido, ciudad, direccion, telefono, correo, estado, rol } = user;
+    const { cedula, nombre, apellido, ciudad, direccion, telefono, correo, estado, rol } = user;
     const navigate = useNavigate();
 
     const handleChange = event => {
@@ -87,8 +87,8 @@ const AddUser = () => {
                                                 <input
                                                     className="form-control form-control-user"
                                                     type="text" 
-                                                    name="nombres"
-                                                    value={ nombres }
+                                                    name="nombre"
+                                                    value={ nombre }
                                                     onChange = { handleChange }
                                                 />
                                             </div>

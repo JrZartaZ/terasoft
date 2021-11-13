@@ -106,7 +106,7 @@ const UserList = () => {
 
                                                         <tr key={ user._id }>
                                                             <td>{ user .cedula }</td>
-                                                            <td>{ user .nombres }</td>
+                                                            <td>{ user .nombre }</td>
                                                             <td>{ user .correo }</td>
                                                             <td>{ user .telefono }</td>
                                                             <td>{ user .ciudad }</td>

@@ -5,6 +5,8 @@ import BarraNav from '../../components/BarraNav';
 import TopBar from '../../components/TopBar';
 import Footer from '../../components/Footer';
 
+import Select from '../Select'
+
 
 function AddSale() {
 
@@ -27,6 +29,27 @@ function AddSale() {
 		{ sale, products, sellers } = formData,
 		{ codigo, cedula, nombreCliente, nombreEncargado, producto, cantidad, total, estado, fechaVenta } = sale,
 		navigate = useNavigate();
+	
+
+	useEffect( () => {
+
+		const getDataSellersAPI = async () => {
+			const
+				response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/vendedores` ),
+				data = await response .json();
+
+			// console.log( data );
+			setFormData({
+				...formData,
+				sellers: data.sellers
+			});
+
+		}
+
+		getDataSellersAPI();
+
+	}, [] );
+
 
 	const handleChange = event => {
 		setFormData({
@@ -86,20 +109,13 @@ function AddSale() {
 									/>
 								</div>
 
-								<div className="col-sm-6 mb-3 mb-sm-0 paddingForm ">
-									Encargado:
-									<select
-										className="form-control"
-										name="nombreEncargado"
-										value={ nombreEncargado }
-										onChange = { handleChange }
-									>
-										<option value="">Seleccione...</option>
-										<option value="nombre-1">Nombre 1</option>
-										<option value="nombre-2">Nombre 2</option>
-										<option value="nombre-3">Nombre 3</option>
-									</select>
-								</div>
+								<Select
+									urn="/vendedores"
+									property="sellers"
+									label="Encargado"
+									formData={ formData }
+									setFormData={ setFormData } 
+								/>
 
 								<div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
 									Nombre del cliente:
@@ -123,20 +139,13 @@ function AddSale() {
 									/>
 								</div>
 
-								<div className="col-sm-6 mb-3 mb-sm-0 paddingForm ">
-									Producto:
-									<select
-										className="form-control"
-										name="producto"
-										value={ producto }
-										onChange = { handleChange }
-									>
-										<option value="">Seleccione...</option>
-										<option value="producto-1">Producto 1</option>
-										<option value="producto-2">Producto 2</option>
-										<option value="producto-3">Producto 3</option>
-									</select>
-								</div>
+								<Select
+									urn="/productos/disponibles"
+									property="products"
+									label="Producto"
+									formData={ formData }
+									setFormData={ setFormData }
+								/>
 
 								<div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
 									Cantidad:
