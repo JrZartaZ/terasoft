@@ -18,23 +18,26 @@ function AddSale() {
 				nombreCliente: '',
 				nombreEncargado: '',
 				producto: '',
-				cantidad: '',
+				cantidad: 0,
+				valor: 0,
 				total: 0,
 				estado: '',
 				fechaVenta: ''
-			}
+			},
+			selectedObject: {}
 		}),
-		{ sale, products, sellers } = formData,
-		{ codigo, cedula, nombreCliente, nombreEncargado, producto, cantidad, total, estado, fechaVenta } = sale,
+		{ sale, selectedObject } = formData,
+		{ codigo, cedula, nombreCliente, nombreEncargado, producto, valor, cantidad, total, estado, fechaVenta } = sale,
 		navigate = useNavigate();
 
-
 	const handleChange = event => {
+
 		setFormData({
 			...formData,
 			sale: {
 				...sale,
-				[ event.target.name ]: event.target.value
+				[ event.target.name ]: event.target.value,
+				total: ( event.target.name == 'cantidad' ) ? event.target.value *  valor : 0
 			}
 			
 		});
@@ -43,13 +46,18 @@ function AddSale() {
 	const handleSubmit = async event => {
         event .preventDefault();
 
+		// TODO: Que el precio cambie cuando cambia el producto
+		if( formData .sale .estado != undefined ) {
+			formData .sale .estado = 'en proceso';
+		}
+
         const
             response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/ventas`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                body: JSON.stringify( formData )
+                body: JSON.stringify( formData.sale )
             }), 
             data  = await response.json();
         
@@ -149,7 +157,7 @@ function AddSale() {
 										<option value="">Seleccione...</option>
 										<option value="en proceso">En proceso</option>
 										<option value="entregado">Entregado</option>
-										<option value="cancelado">cancelado</option>
+										<option value="cancelado">Cancelado</option>
 									</select>
 								</div>
 

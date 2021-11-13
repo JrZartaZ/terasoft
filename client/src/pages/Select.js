@@ -5,7 +5,8 @@ const Select = ({ urn, property, field, label, formData, setFormData }) => {
     const
         [ select, setSelect ] = useState({
             selected: {},
-            data: []
+            data: [],
+            obj: {}
         }),
         { selected, data, nombre } = select;
 
@@ -36,14 +37,20 @@ const Select = ({ urn, property, field, label, formData, setFormData }) => {
             selected: event.target.value
         });
 
+        console.log( data );
+
+        const selectedObject = data .filter( obj => (
+            obj.nombre == event.target.value
+        ));
+
         setFormData({
             ...formData,
-       
                 sale: {
                     ...formData.sale,
-                    [ field ]: event.target.value
-                }
-   
+                    [ field ]: event.target.value,
+                    valor: ( 'valorUnitario' in selectedObject[ 0 ] ) ? selectedObject[ 0 ].valorUnitario : 0
+                },
+                selectedObject
         })
 
 	}
