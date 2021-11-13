@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import BarraNav from '../components/BarraNav';
-import TopBar from '../components/TopBar';
-import Footer from '../components/Footer';
+import BarraNav from '../../components/BarraNav';
+import TopBar from '../../components/TopBar';
+import Footer from '../../components/Footer';
 
 function EditSale() {
     return (
