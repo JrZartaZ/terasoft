@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-const Select = ({ urn, property, label, formData, setFormData }) => {
+const Select = ({ urn, property, field, label, formData, setFormData }) => {
 
     const
         [ select, setSelect ] = useState({
             selected: {},
             data: []
         }),
-        { selected, data } = select;
+        { selected, data, nombre } = select;
 
     useEffect( () => {
         
@@ -30,7 +30,22 @@ const Select = ({ urn, property, label, formData, setFormData }) => {
 	}, [] );
 
     const handleChange = event => {
-		
+
+		setSelect({
+            ...select,
+            selected: event.target.value
+        });
+
+        setFormData({
+            ...formData,
+       
+                sale: {
+                    ...formData.sale,
+                    [ field ]: event.target.value
+                }
+   
+        })
+
 	}
 
     return (
@@ -38,8 +53,8 @@ const Select = ({ urn, property, label, formData, setFormData }) => {
             { label }:
             <select
                 className="form-control"
-                name="data"
-                value={ data }
+                name="nombre"
+                value={ nombre }
                 onChange = { handleChange }
             >
                 <option value="">Seleccione...</option>

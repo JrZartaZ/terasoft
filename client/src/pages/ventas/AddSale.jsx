@@ -19,36 +19,14 @@ function AddSale() {
 				nombreEncargado: '',
 				producto: '',
 				cantidad: '',
-				total: '',
+				total: 0,
 				estado: '',
 				fechaVenta: ''
-			},
-			products: [],
-			sellers: []
+			}
 		}),
 		{ sale, products, sellers } = formData,
 		{ codigo, cedula, nombreCliente, nombreEncargado, producto, cantidad, total, estado, fechaVenta } = sale,
 		navigate = useNavigate();
-	
-
-	useEffect( () => {
-
-		const getDataSellersAPI = async () => {
-			const
-				response = await fetch( `${ process .env .REACT_APP_LOCAL_URI }/vendedores` ),
-				data = await response .json();
-
-			// console.log( data );
-			setFormData({
-				...formData,
-				sellers: data.sellers
-			});
-
-		}
-
-		getDataSellersAPI();
-
-	}, [] );
 
 
 	const handleChange = event => {
@@ -115,6 +93,7 @@ function AddSale() {
 									label="Encargado"
 									formData={ formData }
 									setFormData={ setFormData } 
+									field="nombreEncargado"
 								/>
 
 								<div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
@@ -145,6 +124,7 @@ function AddSale() {
 									label="Producto"
 									formData={ formData }
 									setFormData={ setFormData }
+									field="producto"
 								/>
 
 								<div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
@@ -175,7 +155,7 @@ function AddSale() {
 
 								<div className="col-sm-6 mb-3 mb-sm-0 paddingForm">
 									Total:
-									<p>{ total }</p>
+									<p>$ { total }</p>
 								</div>
 
 							</div>
