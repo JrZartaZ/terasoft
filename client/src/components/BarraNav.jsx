@@ -78,8 +78,8 @@ const BarraNav = () => {
     <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Gestionar Productos:</h6>
-            <a className="collapse-item" href="/listProduct">Listar Producto</a>
-            <a className="collapse-item" href="/addProduct">Agregar Producto</a>
+            <a className="collapse-item" href="/products">Listar Producto</a>
+            <a className="collapse-item" href="/add-product">Agregar Producto</a>
         </div>
     </div>
 </li>

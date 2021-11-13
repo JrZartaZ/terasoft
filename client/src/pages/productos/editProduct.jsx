@@ -54,7 +54,7 @@ function EditProduct(){
         
         console.log( data );
 
-        navigate( '/listProduct' );
+        navigate( '/products' );
     }
 
 

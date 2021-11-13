@@ -6,7 +6,7 @@ import TopBar from '../../components/TopBar';
 import Footer from '../../components/Footer';
 
 function AddProduct(){
-    {/*Defino las variables para capturar los datos de addProduct*/}
+    {/*Defino las variables para capturar los datos de add-product*/}
     const [ product, setProduct ] = useState({
         codigo: '',
         nombre: '',
@@ -40,7 +40,7 @@ function AddProduct(){
         
             console.log( data );
 
-        navigate( '/listProduct' );
+        navigate( '/products' );
     }
 
 

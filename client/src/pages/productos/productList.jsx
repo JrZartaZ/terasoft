@@ -76,7 +76,7 @@ function ProductList(){
 
                             {/*Add producto icon*/}
                             <div>
-                                <Link to={ '/addProduct' } className="btn btn-primary btn-circle btn-sm">
+                                <Link to={ '/add-product' } className="btn btn-primary btn-circle btn-sm">
                                     <i className="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
                                 </Link>
                             </div>
@@ -113,7 +113,7 @@ function ProductList(){
                                                         <td>
                                                             <Link
                                                                 to={{
-                                                                    pathname: `/editProduct/${ product ._id }`
+                                                                    pathname: `/edit-product/${ product ._id }`
                                                                   }}
                                                                 className="btn btn-primary btn-circle btn-sm">
                                                                 <span className="fas fa-pencil-alt fa-lg" aria-hidden="true"></span>
