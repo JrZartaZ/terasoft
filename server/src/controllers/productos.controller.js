@@ -26,6 +26,18 @@ exports.getAll = async (request, response) => {
     });
 };
 
+exports.getAllAvailableProducts = async (request, response) => {
+    const products = await Producto .find({ estado: 'disponible' });
+    
+    response .status( 200 ) .json({ 
+        method: 'GET', 
+        path: '/api/productos-disponibles', 
+        msg: 'Obtiene todos los productos disponibles',
+        count: products .length,
+        products: products 
+    });
+};
+
 /** Obtiene un recurso por su ID */
 exports.getById = async (request, response) => {
     const

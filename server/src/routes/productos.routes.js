@@ -14,6 +14,12 @@ router.get(
   productosController.getAll // Run controller functionality
 );
 
+/** Obtiene todos los recursos */
+router.get(
+  "/disponibles", // Path
+  productosController.getAllAvailableProducts // Run controller functionality
+);
+
 /** Obtiene un recurso por su ID */
 router.get(
   "/:id", // Path

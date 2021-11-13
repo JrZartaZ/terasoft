@@ -7,12 +7,19 @@ show collections
 
 db.productos.find();
 db.productos.find({ '_id': ObjectId( '618ea81b01c091295ac44cb4' ) });
+db.productos.find({ estado: 'disponible' });
 
 db.usuarios.find();
+db.usuarios.find({ rol: 'vendedor', estado: 'autorizado' });
 db.usuarios.updateOne(
     { '_id': ObjectId( '618eeaa21f6bc477b5ad9016' ) },
     { $set: { 'ciudad': 'Bogota' } }
 );
+
+db.usuarios.deleteOne( { "_id" : ObjectId( '618fc530a99be91514e0c9d1' ) } );
+
+db.ventas.find();
+db.ventas.find({ '_id': ObjectId( '618fcb953d6b7220e86dee57' ) });
 
 db.usuarios.update({ _id: ObjectId( '618eeaa21f6bc477b5ad9016' )},  { $set: { ciudad: 'Cali' }})
 
