@@ -1,6 +1,21 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
+
 import Panel from '../components/panel';
 
+const idClientGoogle = '530298702735-2f3kmn9k2dg8puodl8td5ka8480ipgi6.apps.googleusercontent.com';
+
 function Login() {
+
+    const handleSuccessGoogle = response => {
+        console.log( 'Success: ', response );
+    }
+
+    const handleFailureGoogle = response => {
+        console.log( 'Failure: ', response );
+    }
+
     return (
         <div>
             <Panel />
@@ -32,13 +47,18 @@ function Login() {
                                                         <label className="custom-control-label" for="customCheck">Recordarme</label>
                                                     </div>
                                                 </div>
-                                                <a href="/index" className="btn btn-primary btn-user btn-block">
+                                                <Link to="/" className="btn btn-primary btn-user btn-block">
                                                     Ingresa
-                                                </a>
+                                                </Link>
                                                 <hr />
-                                                <a href="/index" className="btn btn-google btn-user btn-block">
-                                                    <i className="fab fa-google fa-fw"></i> Inicia Sesión con Gmail
-                                                </a>
+                                                <GoogleLogin
+                                                    clientId={ idClientGoogle }
+                                                    buttonText="Login with Google"
+                                                    onSuccess={ handleSuccessGoogle }
+                                                    onFailure={ handleFailureGoogle }
+                                                    cookiePolicy={'single_host_origin'}
+                                                    className="btn btn-google btn-user btn-block d-flex justify-content-center"
+                                                />
 
                                             </form>
                                             <hr />
