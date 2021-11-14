@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 
 import Panel from '../components/panel';
@@ -8,8 +8,29 @@ const idClientGoogle = '530298702735-2f3kmn9k2dg8puodl8td5ka8480ipgi6.apps.googl
 
 function Login() {
 
-    const handleSuccessGoogle = response => {
-        console.log( 'Success: ', response );
+    const navigate = useNavigate();
+
+    const handleSuccessGoogle = async response => {
+
+        console.log( process.env.REACT_APP_LOCAL_URI );
+
+        const
+            dataResponse = await fetch( `${ process.env.REACT_APP_LOCAL_URI }/auth/google-login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    tokenId: response.tokenId
+                })
+            }),
+            data = await dataResponse.json();
+
+            if( data ) {
+                console.log( data );
+                navigate( '/products' );
+            }
+
     }
 
     const handleFailureGoogle = response => {
