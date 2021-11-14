@@ -7,6 +7,7 @@ const mongoose = require("mongoose"),
 			direccion: String,
 			telefono: String,
 			correo: String,
+			contrasena: String,
 			estado: {
 				type: String,
     			enum: [ 'pendiente', 'autorizado', 'no autorizado' ],
